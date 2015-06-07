@@ -27,7 +27,7 @@ check = new Check({
             default: 'A-'
         }
     ],
-    help: 'Usage: check_sslscan [Options]\nOptions:\n[[OPTIONS]]'
+    help: 'Usage: check_ssllabs [Options]\nOptions:\n[[OPTIONS]]'
 });
 
 if(!check.param('host')) {
