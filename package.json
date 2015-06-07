@@ -1,0 +1,18 @@
+{
+  "name": "check_*",
+  "version": "0.1.0",
+  "description": "My check_* modules…",
+  "author": "Sebastian Pekarek",
+  "license": "MIT",
+  "bin": {
+    "check_ssllabs": "./check_ssllabs/index.js"
+  },
+  "devDependencies": {
+    "nexe": "^0.3.8"
+  },
+  "dependencies": {
+    "nagios-plugin": "^0.1.2",
+    "node-getopt": "^0.2.3",
+    "node-ssllabs": "^0.4.3"
+  }
+}
