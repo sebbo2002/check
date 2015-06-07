@@ -7,7 +7,7 @@ Just some Nagios checks…
 
 ## Installation
 
-For usage, node.js is required. Then you can run `npm install -g sebbo2002/check` to install these checks.
+For usage, node.js is required. Then you can run `npm install -g @sebbo2002/check` to install these checks.
 
 
 ## Quick Start
