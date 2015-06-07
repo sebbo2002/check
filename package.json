@@ -1,7 +1,7 @@
 {
-  "name": "check_*",
+  "name": "@sebbo2002/check",
   "version": "0.1.0",
-  "description": "My check_* modules…",
+  "description": "Just some Nagios checks…",
   "author": "Sebastian Pekarek",
   "license": "MIT",
   "bin": {
