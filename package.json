@@ -11,8 +11,10 @@
     "nexe": "^0.3.8"
   },
   "dependencies": {
+    "async": "^1.2.1",
     "nagios-plugin": "^0.1.2",
     "node-getopt": "^0.2.3",
-    "node-ssllabs": "^0.4.3"
+    "node-ssllabs": "^0.4.3",
+    "request": "^2.57.0"
   }
 }
