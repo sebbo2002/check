@@ -30,16 +30,16 @@ if(!check.param('host')) {
 }
 
 url = require('url').parse(check.param('host'));
-if(url.protocol === 'http' && !check.param('disable-http-warning')) {
+if(url.protocol === 'http:' && !check.param('disable-http-warning')) {
     check.critical('TeamCity access over HTTP blocked, due to security reasons. Enter a HTTPS secured address or add `disable-http-warning` to allow unsecure connections…');
     return check.send();
 }
 else if(url.protocol === null && url.pathname) {
-    url.protocol = 'https';
+    url.protocol = 'https:';
     url.hostname = url.pathname;
     url.pathname = null;
 }
-else if(['http', 'https'].indexOf(url.protocol) < 0) {
+else if(['http:', 'https:'].indexOf(url.protocol) < 0) {
     check.critical('Unsupported protocol `%s`!', url.protocol);
     return check.send();
 }
@@ -181,6 +181,7 @@ async.parallel({
     }
 
     // check agents
+    console.log(res.getNumOfConnectedAgents);
     if(res.getNumOfConnectedAgents.ready.length === 0) {
         check.critical('No healthy agents available!');
     }

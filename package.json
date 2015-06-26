@@ -1,11 +1,13 @@
 {
   "name": "@sebbo2002/check",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Just some Nagios checks…",
   "author": "Sebastian Pekarek",
   "license": "MIT",
   "bin": {
-    "check_ssllabs": "./check_ssllabs/index.js"
+    "check_ssllabs": "./check_ssllabs/index.js",
+    "check_temcity": "./check_teamcity/index.js",
+    "check_kue": "./check_kue/index.js"
   },
   "devDependencies": {
     "nexe": "^0.3.8"
