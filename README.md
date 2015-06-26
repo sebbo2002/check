@@ -7,7 +7,7 @@ Just some Nagios checks…
 
 ## Installation
 
-For usage, node.js is required. Then you can run `npm install -g sebbo2002/check` to install these checks.
+For usage, node.js is required. Then you can run `npm install -g @sebbo2002/check` to install these checks.
 
 
 ## Quick Start
@@ -15,7 +15,7 @@ For usage, node.js is required. Then you can run `npm install -g sebbo2002/check
 ### check_ssllabs
 
 ```
-Usage: check_sslscan [Options]
+Usage: check_ssllabs [Options]
 Options:
   -h, --host=<STRING>      Host which should be tested
   -w, --warning=<STRING>   Warning threshold
