@@ -181,7 +181,6 @@ async.parallel({
     }
 
     // check agents
-    console.log(res.getNumOfConnectedAgents);
     if(res.getNumOfConnectedAgents.ready.length === 0) {
         check.critical('No healthy agents available!');
     }
