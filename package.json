@@ -6,7 +6,7 @@
   "license": "MIT",
   "bin": {
     "check_ssllabs": "./check_ssllabs/index.js",
-    "check_temcity": "./check_teamcity/index.js",
+    "check_teamcity": "./check_teamcity/index.js",
     "check_kue": "./check_kue/index.js"
   },
   "devDependencies": {

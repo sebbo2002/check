@@ -177,7 +177,7 @@ async.parallel({
         check.ok('Your TeamCity installation (%s, build %s) is up to date.', res.getCurrentTeamcityVersion.version, res.getCurrentTeamcityVersion.build);
     }
     else if(res.getMostRecentTeamcityVersion !== res.getCurrentTeamcityVersion.version) {
-        check.ok('There are updates available (installed: %s, available: %s)', res.getCurrentTeamcityVersion.version, res.getMostRecentTeamcityVersion);
+        check.warning('There are updates available (installed: %s, available: %s)', res.getCurrentTeamcityVersion.version, res.getMostRecentTeamcityVersion);
     }
 
     // check agents
