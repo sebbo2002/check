@@ -79,12 +79,12 @@ request({
     }
 
     // updated < 10min ago
-    if(mostRecentItem.updated_at && new Date().getTime() - new Date(mostRecentItem.updated_at * 1000).getTime() <= 600000) {
+    if(mostRecentItem.updated_at && new Date().getTime() - new Date(mostRecentItem.updated_at).getTime() <= 600000) {
         check.ok('Current Job: #%s %s (%s%)', mostRecentItem.id, mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), mostRecentItem.progress);
     }
 
     // updated < 30min ago
-    else if(mostRecentItem.updated_at && new Date().getTime() - new Date(mostRecentItem.updated_at * 1000).getTime() <= 1800000) {
+    else if(mostRecentItem.updated_at && new Date().getTime() - new Date(mostRecentItem.updated_at).getTime() <= 1800000) {
         check.warning('Current Job: #%s %s (%s%, last update: %s)', mostRecentItem.id, mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), mostRecentItem.progress, new Date(mostRecentItem.updated_at).toString());
     }
 
