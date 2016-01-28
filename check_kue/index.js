@@ -56,7 +56,8 @@ request({
     }
 
     var data,
-        mostRecentItem;
+        mostRecentItem,
+        lastUpdateAgo;
 
     try {
         data = JSON.parse(body);
@@ -79,17 +80,35 @@ request({
     }
 
     // updated < 10min ago
-    if(mostRecentItem.updated_at && new Date().getTime() - new Date(mostRecentItem.updated_at * 1000).getTime() <= 600000) {
-        check.ok('Current Job: #%s %s (%s%)', mostRecentItem.id, mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), mostRecentItem.progress);
+    lastUpdateAgo = new Date().getTime() - mostRecentItem.updated_at;
+    if(mostRecentItem.updated_at && lastUpdateAgo <= 60000) {
+        check.ok(
+            'Current Job: #%s %s (%s%)', 
+            mostRecentItem.id, 
+            mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), 
+            mostRecentItem.progress
+        );
     }
 
     // updated < 30min ago
-    else if(mostRecentItem.updated_at && new Date().getTime() - new Date(mostRecentItem.updated_at * 1000).getTime() <= 1800000) {
-        check.warning('Current Job: #%s %s (%s%, last update: %s)', mostRecentItem.id, mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), mostRecentItem.progress, new Date(mostRecentItem.updated_at).toString());
+    else if(mostRecentItem.updated_at && lastUpdateAgo <= 1800000) {
+        check.warning(
+            'Current Job: #%s %s (%s%, last update: %s)', 
+            mostRecentItem.id, 
+            mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), 
+            mostRecentItem.progress, 
+            new Date(parseInt(mostRecentItem.updated_at, 10)).toLocaleString()
+        );
     }
 
     else {
-        check.critical('Current Job: #%s %s (%s%, last update: %s)', mostRecentItem.id, mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), mostRecentItem.progress, new Date(mostRecentItem.updated_at).toString());
+        check.critical(
+            'Current Job: #%s %s (%s%, last update: %s)', 
+            mostRecentItem.id, 
+            mostRecentItem.data.title || mostRecentItem.data.file || JSON.stringify(mostRecentItem.data), 
+            mostRecentItem.progress, 
+            new Date(parseInt(mostRecentItem.updated_at, 10)).toLocaleString()
+        );
     }
 
     check.send();

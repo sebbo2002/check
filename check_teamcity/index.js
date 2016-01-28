@@ -6,6 +6,7 @@ var Check = require('../check.js'),
     async = require('async'),
     ua = 'Mozilla/5.0 (check_teamcity) check_teamcity/' + require('../package.json').version + ' (https://github.com/sebbo2002/check)',
     url,
+    tcurl,
     check;
 
 check = new Check({
@@ -49,31 +50,38 @@ if(!url.auth) {
     url.auth = 'guest';
 }
 
+// TC-URL without trailing /
+tcurl = require('url').format(url);
+if(tcurl.substr(-1) === '/') {
+    tcurl = tcurl.substr(0, tcurl.length - 1);
+}
+
 async.parallel({
     getMostRecentTeamcityVersion: function(cb) {
         request({
-            url: 'https://www.jetbrains.com/js2/version.js',
+            url: 'https://data.services.jetbrains.com/products/releases?code=TC&latest=true&type=release',
             headers: {
                 'User-Agent': ua
-            }
+            },
+            json: true
         }, function(error, response, body) {
             if(error) {
                 check.critical('Unknown error while fetching the most recent TeamCity version: %s', error);
                 return cb();
             }
 
-            var res = body.match(/versionTCLong\s=\s["|']([0-9.]+)["|'];/i);
-            if(!res) {
+            if(!body || !body.TC || !body.TC[0] || !body.TC[0].version) {
                 check.warning('Unable to detect most recent TeamCity version, sorry…');
+                console.log(body);
                 return cb();
             }
 
-            cb(null, res[1]);
+            cb(null, body.TC[0].version);
         });
     },
     getCurrentTeamcityVersion: function(cb) {
         request({
-            url: require('url').format(url) + '/httpAuth/app/rest/server',
+            url: tcurl + '/httpAuth/app/rest/server',
             headers: {
                 'Accept': 'application/json',
                 'User-Agent': ua
@@ -98,7 +106,7 @@ async.parallel({
     },
     getNumOfConnectedAgents: function(cb) {
         request({
-            url: require('url').format(url) + '/httpAuth/app/rest/agents',
+            url: tcurl + '/httpAuth/app/rest/agents',
             headers: {
                 'Accept': 'application/json',
                 'User-Agent': ua
@@ -118,7 +126,7 @@ async.parallel({
             json.agent.forEach(function(agent) {
                 jobs.push(function(cb) {
                     request({
-                        url: require('url').format(url) + agent.href,
+                        url: tcurl + '/' + agent.href.substr(1),
                         headers: {
                             'Accept': 'application/json',
                             'User-Agent': ua
@@ -181,10 +189,10 @@ async.parallel({
     }
 
     // check agents
-    if(res.getNumOfConnectedAgents.ready.length === 0) {
+    if(!res.getNumOfConnectedAgents || !res.getNumOfConnectedAgents.ready || res.getNumOfConnectedAgents.ready.length === 0) {
         check.critical('No healthy agents available!');
     }
-    res.getNumOfConnectedAgents.notReady.forEach(function(status) {
+    (res.getNumOfConnectedAgents.notReady || []).forEach(function(status) {
         check.warning('Agent %s', status);
     });
 
