@@ -1,0 +1,60 @@
+#!/bin/bash
+
+STATE_OK=0
+STATE_WARNING=1
+STATE_CRITICAL=2
+STATE_UNKNOWN=3
+
+BACKUP_DIR="$1"
+WARN_AGE="$2"
+CRIT_AGE="$3"
+MAXDEPTH="$4"
+
+usage() {
+  cat <<EOF
+Usage: $(basename $0) <dir> <warn> <crit> [<maxdepth>]
+
+Options:
+<dir> is the directory to look in for backups
+<warn> is the maximum age of the newest backup before the state is warning
+<crit> is the maximum age of the newest backup before the state is critical
+<maxdepth> is the maximum search depth and optional (but very recommended for
+           file backups)
+EOF
+}
+
+if [ "$#" -lt 3 ]; then
+  usage
+  exit $STATE_UNKNOWN
+elif ! [ -e "$BACKUP_DIR" ]; then
+  echo "${BACKUP_DIR} does not exist!"
+  usage
+  exit $STATE_UNKNOWN
+elif [ "$WARN_AGE" -gt "$CRIT_AGE" ]; then
+  echo "Warning age ${WARN_AGE} is greater than critical age ${CRIT_AGE}!"
+  usage
+  exit $STATE_UNKNOWN
+elif [ "$WARN_AGE" -eq 0 ]; then
+  echo "Warning age is 0! That doesn't make sense, you know..."
+  usage
+  exit $STATE_UNKNOWN
+elif [ "$CRIT_AGE" -eq 0 ]; then
+  echo "Critical age is 0! That doesn't make sense, you know..."
+  usage
+  exit $STATE_UNKNOWN
+fi
+
+has_files() {
+  find "$BACKUP_DIR" ${MAXDEPTH:+-maxdepth $MAXDEPTH} -mtime "-$1" -printf '#'|grep '#' > /dev/null
+}
+
+if ! has_files "$CRIT_AGE"; then
+  echo "CRITICAL: Newest backup older than ${CRIT_AGE} days"
+  exit $STATE_CRITICAL
+elif ! has_files "$WARN_AGE"; then
+  echo "WARNING: Newest backup older than ${WARN_AGE} days"
+  exit $STATE_WARNING
+else
+  echo "OK: Newest backup not older than ${WARN_AGE} days"
+  exit $STATE_OK
+fi
