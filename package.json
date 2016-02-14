@@ -5,18 +5,22 @@
   "author": "Sebastian Pekarek",
   "license": "MIT",
   "bin": {
+    "check_backups": "./check_backups/check_backups",
+    "check_kue": "./check_kue/index.js",
+    "check_reboot_required": "./check_reboot_required/check_reboot_required",
+    "check_rkhunter": "./check_rkhunter/check_rkhunter",
     "check_ssllabs": "./check_ssllabs/index.js",
     "check_teamcity": "./check_teamcity/index.js",
-    "check_kue": "./check_kue/index.js"
+    "check_zfs": "./check_zfs/check_zfs"
   },
   "devDependencies": {
     "nexe": "^0.3.8"
   },
   "dependencies": {
-    "async": "^1.2.1",
+    "async": "^1.5.2",
     "nagios-plugin": "^0.1.2",
     "node-getopt": "^0.2.3",
     "node-ssllabs": "^0.4.3",
-    "request": "^2.57.0"
+    "request": "^2.69.0"
   }
 }
