@@ -1,4 +1,4 @@
-# check
+# nagios-checks
 
 Just some Nagios/Icinga checks I use to monitor stuff…
 
