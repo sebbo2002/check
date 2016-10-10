@@ -1,0 +1,45 @@
+#! /bin/sh
+#
+# check_reboot_required
+#
+# Check if reboot required (/var/run/reboot-required exists)
+#
+
+APPNAME=`basename $0`
+
+print_usage() {
+	echo "Usage: $APPNAME"
+}
+
+print_help() {
+	print_revision $APPNAME
+	echo ""
+	print_usage
+	echo ""
+	echo ""
+	exit 0
+}
+
+case "$1" in
+	--help)
+		print_help
+		exit 0
+		;;
+	-h)
+		print_help
+		exit 0
+		;;
+	*)
+		# Now test the status
+		if [ -f /var/run/reboot-required ]; then
+			cat /var/run/reboot-required
+			echo ""
+			echo ""
+			echo "WARNING - System restart required"
+			exit 1
+		else
+			echo OK: Everything is awesome...
+			exit 0
+		fi
+		;;
+esac

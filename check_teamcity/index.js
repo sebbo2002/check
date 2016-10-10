@@ -133,6 +133,7 @@ async.parallel({
                         },
                         json: true
                     }, function(error, response, json) {
+                        console.log(json);
                         if(error) {
                             check.critical('Unknown error while fetching agent #%s data: %s', agent.id, error);
                             return cb(null, {});
@@ -164,10 +165,6 @@ async.parallel({
                     else if(!agent.authorized) {
                         check.warning('Agent %s unauthorized!', agent.name);
                         res.notReady.push(agent.name + ' => unauthorized');
-                    }
-                    else if(!agent.uptodate) {
-                        check.warning('Agent %s out of date!', agent.name);
-                        res.notReady.push(agent.name + ' => out of date');
                     }
                     else {
                         res.ready.push(agent.name + ' => OK');

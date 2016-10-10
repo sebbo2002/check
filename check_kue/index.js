@@ -13,7 +13,7 @@ check = new Check({
         {
             short: 'h',
             long: 'host=<STRING>',
-            desc: 'kue-URL (`https://teamcity.example.com`)'
+            desc: 'kue-URL (`https://kue.example.com`)'
         },
         {
             long: 'disable-http-warning',
