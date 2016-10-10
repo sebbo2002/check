@@ -72,7 +72,6 @@ async.parallel({
 
             if(!body || !body.TC || !body.TC[0] || !body.TC[0].version) {
                 check.warning('Unable to detect most recent TeamCity version, sorry…');
-                console.log(body);
                 return cb();
             }
 
