@@ -11,7 +11,8 @@
     "check_rkhunter": "./check_rkhunter/check_rkhunter",
     "check_ssllabs": "./check_ssllabs/index.js",
     "check_teamcity": "./check_teamcity/index.js",
-    "check_zfs": "./check_zfs/check_zfs"
+    "check_zfs": "./check_zfs/check_zfs",
+    "check_fhem_max": "./check_fhem_max/check_fhem_max"
   },
   "devDependencies": {
     "nexe": "^0.3.8"

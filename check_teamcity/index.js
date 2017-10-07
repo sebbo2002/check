@@ -4,7 +4,7 @@
 var Check = require('../check.js'),
     request = require('request'),
     async = require('async'),
-    ua = 'Mozilla/5.0 (check_teamcity) check_teamcity/' + require('../package.json').version + ' (https://github.com/sebbo2002/check)',
+    ua = 'Mozilla/5.0 (check_teamcity) check_teamcity/' + require('../package.json').version + ' (https://github.com/sebbo2002/nagios-checks)',
     url,
     tcurl,
     check;
