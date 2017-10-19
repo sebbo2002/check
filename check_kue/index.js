@@ -3,7 +3,7 @@
 
 var Check = require('../check.js'),
     request = require('request'),
-    ua = 'Mozilla/5.0 (check_kue) check_kue/' + require('../package.json').version + ' (https://github.com/sebbo2002/check)',
+    ua = 'Mozilla/5.0 (check_kue) check_kue/' + require('../package.json').version + ' (https://github.com/sebbo2002/nagios-checks)',
     check,
     url;
 
