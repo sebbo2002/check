@@ -23,6 +23,14 @@ check = new Check({
 		{
 			long: 'disable-http-warning',
 			desc: 'Disable warning for FHEM instances without SSL'
+		},
+		{
+			long: 'disable-weekprofile-check',
+			desc: 'Disable Week Profile Check'
+		},
+		{
+			long: 'disable-mode-check',
+			desc: 'Disable Mode Check'
 		}
 	],
 	help: 'Usage: check_fhem_max [Options]\nOptions:\n[[OPTIONS]]'
@@ -165,7 +173,8 @@ request({
 
 	if (
 		['HeatingThermostat', 'WallMountedThermostat'].indexOf(mainDevice.Internals.type) > -1 &&
-		mainDevice.Readings.mode.Value !== 'auto'
+		mainDevice.Readings.mode.Value !== 'auto' && 
+		!check.param('disable-mode-check')
 	) {
 		check.warning('Thermostat is not in auto mode…');
 	}
@@ -183,7 +192,7 @@ request({
 		check.warning('It\'s exremely cold in here: %s °C', parseFloat(mainDevice.Readings.temperature.Value));
 	}
 
-	if(['HeatingThermostat', 'WallMountedThermostat'].indexOf(mainDevice.Internals.type) > -1) {
+	if(['HeatingThermostat', 'WallMountedThermostat'].indexOf(mainDevice.Internals.type) > -1 && !check.param('disable-weekprofile-check')) {
 		(function () {
 			var day = ['1-Sun', '2-Mon', '3-Tue', '4-Wed', '5-Thu', '6-Fri', '0-Sat'][new Date().getDay()],
 				now = new Date().getTime(),
@@ -227,7 +236,7 @@ request({
 						'Thermostat is in group %s, but %s is in group %s…',
 						mainDevice.Readings.groupid.Value,
 						device.Attributes.alias ? (device.Attributes.alias + ' (' + device.Name + ')') : device.Name,
-						mainDevice.Readings.groupid.Value
+						device.Readings.groupid.Value
 					);
 				}
 
