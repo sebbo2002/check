@@ -1,6 +1,6 @@
 {
   "name": "@sebbo2002/check",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Just some Nagios checks…",
   "author": "Sebastian Pekarek",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "check_ssllabs": "./check_ssllabs/index.js",
     "check_teamcity": "./check_teamcity/index.js",
     "check_zfs": "./check_zfs/check_zfs",
-    "check_fhem_max": "./check_fhem_max/check_fhem_max"
+    "check_fhem_max": "./check_fhem_max/index.js"
   },
   "devDependencies": {
     "nexe": "^0.3.8"
