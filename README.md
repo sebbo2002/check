@@ -11,6 +11,7 @@ For usage of some checks, node.js is required. Then you can run `npm install -g 
 ## Checks
 
 - [check_backups](./check_backups)
+- [check_fhem_max](./check_fhem_max)
 - [check_kue](./check_kue)
 - [check_reboot_required](./check_reboot_required)
 - [check_rkhunter](./check_rkhunter)

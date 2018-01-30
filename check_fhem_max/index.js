@@ -278,10 +278,10 @@ request({
 		check.ok('Connected');
 	}
 	else if(mainDevice.Internals.type === 'HeatingThermostat') {
-		check.ok('Connected, %s°C (is: %s°C)', parseFloat(mainDevice.Internals.STATE), parseFloat(mainDevice.Readings.temperature.Value));
+		check.ok('Connected, set to %s°C (is: %s°C; %s%)', parseFloat(mainDevice.Readings.state.Value), parseFloat(mainDevice.Readings.temperature.Value), parseFloat(mainDevice.Readings.valveposition.Value));
 	}
 	else if(mainDevice.Internals.type === 'ShutterContact') {
-		check.ok('Connected and %s', mainDevice.Internals.STATE);
+		check.ok('Connected and %s', mainDevice.Readings.state.Value);
 	}
 	else if(mainDevice.Internals.type === 'WallMountedThermostat') {
 		check.ok('Connected, %s°C', parseFloat(mainDevice.Readings.temperature.Value));
