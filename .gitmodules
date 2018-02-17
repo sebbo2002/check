@@ -1,0 +1,3 @@
+[submodule "check_apcupsd"]
+	path = check_apcupsd
+	url = https://github.com/HireChrisJohnston/nagios-apcupsd.git

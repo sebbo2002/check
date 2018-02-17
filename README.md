@@ -18,3 +18,4 @@ For usage of some checks, node.js is required. Then you can run `npm install -g 
 - [check_ssllabs](./check_ssllabs)
 - [check_teamcity](./check_teamcity)
 - [check_zfs](https://exchange.nagios.org/directory/Plugins/Uncategorized/Operating-Systems/Solaris/check_zfs/details)
+- [check_apcupsd](https://github.com/HireChrisJohnston/nagios-apcupsd)
