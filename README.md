@@ -10,11 +10,10 @@ For usage of some checks, node.js is required. Then you can run `npm install -g 
 
 ## Checks
 
+- [check_apcupsd](https://github.com/HireChrisJohnston/nagios-apcupsd)
 - [check_backups](./check_backups)
 - [check_fhem_max](./check_fhem_max)
-- [check_kue](./check_kue)
 - [check_reboot_required](./check_reboot_required)
 - [check_rkhunter](./check_rkhunter)
 - [check_ssllabs](./check_ssllabs)
-- [check_teamcity](./check_teamcity)
 - [check_zfs](https://exchange.nagios.org/directory/Plugins/Uncategorized/Operating-Systems/Solaris/check_zfs/details)
