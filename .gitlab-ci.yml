@@ -22,7 +22,6 @@ sync_github_tags:
     - matt.sebbo.net
     - ssh
   script:
-    - git pull
     - git push --force "https://${GITHUB_AUTH}@github.com/sebbo2002/nagios-checks.git" --tags
   only:
     - branches
