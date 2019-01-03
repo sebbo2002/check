@@ -5,28 +5,27 @@
  * @module check
  * @constructor Check Check
  */
-var Check = function Check(options) {
+var Check = function Check (options) {
     var Plugin = require('nagios-plugin'),
         util = require('util'),
         check = this,
         nagios = new Plugin({shortName: options.name}),
         argDefaults = {},
         args,
-        opt,
-        state;
+        opt;
 
     /**
      * @param {Object[]} newArgs parameter
      * @returns {Check}
      */
-    this.setArguments = function(newArgs) {
-        if(opt) {
+    this.setArguments = function (newArgs) {
+        if (opt) {
             throw 'Arguments already set…';
         }
 
         var getoptParams = [];
-        newArgs.forEach(function(argument) {
-            argDefaults[ argument.long.split('=')[0] ] = argument.default || null;
+        newArgs.forEach(function (argument) {
+            argDefaults[argument.long.split('=')[0]] = argument.default || null;
 
             getoptParams.push([
                 argument.short || null,
@@ -44,7 +43,7 @@ var Check = function Check(options) {
      * @param {String} message Message
      * @returns {Check}
      */
-    this.setHelp = function(message) {
+    this.setHelp = function (message) {
         opt.bindHelp();
         opt.setHelp(message);
 
@@ -56,8 +55,8 @@ var Check = function Check(options) {
      * @param {String} key parameter name
      * @returns {String|null} value
      */
-    this.param = function(key) {
-        if(!args) {
+    this.param = function (key) {
+        if (!args) {
             args = opt.parseSystem();
         }
 
@@ -65,10 +64,10 @@ var Check = function Check(options) {
     };
 
 
-    this.showHelp = function() {
+    this.showHelp = function () {
         console.log('\n## sebbo2002/' + options.name + '\n');
 
-        if(arguments.length) {
+        if (arguments.length) {
             console.error('### Oh oh: :/');
             process.stdout.write('    ');
             console.error.apply(console.log, arguments);
@@ -83,33 +82,32 @@ var Check = function Check(options) {
      * @param {object} p Performance data
      * @returns {Check}
      */
-    this.addPerfData = function(p) {
+    this.addPerfData = function (p) {
         nagios.addPerfData(p);
         return check;
     };
 
 
-    this.ok = function() {
+    this.ok = function () {
         nagios.addMessage(nagios.states.OK, util.format.apply(util.format, arguments));
     };
 
-    this.warning = function() {
+    this.warning = function () {
         nagios.addMessage(nagios.states.WARNING, util.format.apply(util.format, arguments));
     };
 
-    this.critical = function() {
+    this.critical = function () {
         nagios.addMessage(nagios.states.CRITICAL, util.format.apply(util.format, arguments));
     };
 
-    this.send = function() {
+    this.send = function () {
         var messageObj = nagios.checkMessages();
         nagios.nagiosExit(messageObj.state, messageObj.message);
     };
 
 
-
     this.setArguments(options.arguments);
-    if(opt && options && options.help) {
+    if (opt && options && options.help) {
         this.setHelp(options.help);
     }
 };

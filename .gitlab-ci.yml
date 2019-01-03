@@ -1,0 +1,41 @@
+stages:
+  - publish
+
+
+sync_github:
+  stage: publish
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - git reset --hard
+    - git checkout $CI_COMMIT_REF_NAME
+    - git pull
+    - git push --force "https://${GITHUB_AUTH}@github.com/sebbo2002/nagios-checks.git" --all
+  only:
+    - branches
+
+
+sync_github_tags:
+  stage: publish
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - git push --force "https://${GITHUB_AUTH}@github.com/sebbo2002/nagios-checks.git" --tags
+  only:
+    - branches
+
+
+publish_npm:
+  stage: publish
+  tags:
+    - matt.sebbo.net
+    - ssh
+  script:
+    - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+    - npm install
+    - npm run bump
+    - npm publish
+  only:
+    - tags
