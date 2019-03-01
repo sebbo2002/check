@@ -34,7 +34,7 @@ publish_npm:
     - ssh
   script:
     - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-    - npm install
+    - npm ci
     - npm run bump
     - npm publish
   only:
